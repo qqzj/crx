@@ -1,0 +1,42 @@
+{
+    "manifest_version": 2, // 必须有,声明我们使用清单文件格式的版本2
+	
+    "name": "HelloChrome",
+    "version": "0.1",
+    "description": "这是一款瞎扯淡的Google Chrome 扩展程序",
+	
+	"options_page": "option.html",
+	
+    "icons": {// 扩展图标设置
+        "16": "icon_16.png",// 设置界面的图标
+        "64": "icon_64.png",// 设置界面的图标
+        "128": "icon_128.png",// 设置界面的图标
+        "default_icon": "icon_128.png"// 导航栏图标
+    },
+	"content_scripts": [
+		{
+			"matches": ["http://localhost/*"],
+			"css": ["style.css"],
+			"js": ["jquery.min.js", "background.js"]
+		}
+	],
+    "permissions": [ // 扩展允许访问哪些地址
+		"tabs",
+		"bookmarks",
+        "http://localhost/*"
+    ],
+    "background": { // 后端一直运行的js，全局的，生命周期从浏览器打开到浏览器关闭
+		"persistent": false,
+        "scripts": ["jquery.min.js","background.js"]
+    },
+    "browser_action": { // 扩展地址栏右侧一个图标，点击出现default_popup指定的页面
+        "default_title": "设置此应用",//鼠标移上去的提示
+		"default_icon": "icon_128.png",
+        "default_popup": "popup.html"
+    },
+    "chrome_url_overrides": { // 覆盖chrome新建标签
+		"bookmarks": "override.html"
+		//"history": "myPage.html",
+		//"newtab": "myPage.html"
+    }
+}
